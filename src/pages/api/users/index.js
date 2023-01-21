@@ -51,5 +51,8 @@ export default async function handler(req, res) {
         res.status(400).json({ error: e });
       }
       break;
+    default:
+      res.status(400).json({ message: `${method} method not supported` });
+      break;
   }
 }
