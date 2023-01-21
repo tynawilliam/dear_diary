@@ -46,7 +46,7 @@ export default async function handler(req, res) {
           created_at: newUser.created_at,
           updated_at: newUser.updated_at,
         };
-        res.json(response);
+        res.status(200).json(response);
       } catch (e) {
         res.status(400).json({ error: e });
       }
