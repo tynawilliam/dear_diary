@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signIn, getCsrfToken } from "next-auth/react";
 
-function Copyright(props, { csrfToken }) {
+function Copyright(props) {
   return (
     <Typography
       variant="body2"
@@ -34,7 +34,7 @@ function Copyright(props, { csrfToken }) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ csrfToken }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -93,6 +93,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            <input type="hidden" name="csrfToken" value={csrfToken} />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
