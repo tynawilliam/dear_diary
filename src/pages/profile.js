@@ -1,13 +1,19 @@
 import Loader from "@/components/Loader";
 import React from "react";
-import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import Signout from "@/components/Signout";
 
 function profile() {
-  return (
-    <div>
-      <button onClick={() => signIn()}>Sign in</button>
-    </div>
-  );
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        {" "}
+        <Signout />
+      </>
+    );
+  }
+  return <div>Not Logged in</div>;
 }
 
 export default profile;
