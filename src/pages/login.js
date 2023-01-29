@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signIn, getCsrfToken } from "next-auth/react";
 
-function Copyright(props) {
+function Copyright(props, { csrfToken }) {
   return (
     <Typography
       variant="body2"
@@ -34,7 +34,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login() {
+export default function SignIn() {
   async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,10 +43,9 @@ export default function Login() {
     const password = data.get("password");
 
     const res = await signIn("credentials", {
-      redirect: false,
       email,
       password,
-      // callbackUrl: `${window.location.origin}`,
+      callbackUrl: "/profile",
     });
   }
 
@@ -124,4 +123,12 @@ export default function Login() {
       </Container>
     </ThemeProvider>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
 }
