@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { signIn, getCsrfToken } from "next-auth/react";
 
 function Copyright(props) {
   return (
@@ -34,14 +35,20 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+
+    const email = data.get("email");
+    const password = data.get("password");
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+      // callbackUrl: `${window.location.origin}`,
     });
-  };
+  }
 
   return (
     <ThemeProvider theme={theme}>
