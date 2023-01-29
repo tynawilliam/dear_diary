@@ -30,6 +30,7 @@ export const authOptions = {
         });
         const user = await res.json();
         if (res.ok && user) {
+          console.log(user);
           return user;
         }
         return null;
