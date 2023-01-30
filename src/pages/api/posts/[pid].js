@@ -4,7 +4,6 @@ export default async function handler(req, res) {
   const method = req.method;
   const { pid } = req.query;
   const id = parseInt(pid);
-  console.log(id);
 
   const post = await prisma.document.findFirst({
     where: { id },
