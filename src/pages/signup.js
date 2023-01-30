@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Loader from "@/components/Loader";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Copyright(props) {
   return (
@@ -34,6 +36,16 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (status !== "loading") {
+      if (session) {
+        router.push("/");
+      }
+    }
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);

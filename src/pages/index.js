@@ -1,15 +1,19 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
-import Login from "@/pages/login";
+import Loader from "@/components/Loader";
+import Signout from "@/components/Signout";
+import getStatus from "@/utils/checkStatus";
+import { useSession } from "next-auth/react";
 
-const inter = Inter({ subsets: ["latin"] });
+export default function HomePage() {
+  const { data: session } = useSession();
+  getStatus();
+  if (!session) return <Loader />;
 
-export default function Home() {
-  return (
-    <>
-      <Login />
-    </>
-  );
+  if (session) {
+    return (
+      <>
+        <h1>Home</h1>
+        <Signout />
+      </>
+    );
+  }
 }

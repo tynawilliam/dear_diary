@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signIn, getCsrfToken } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 function Copyright(props) {
   return (
@@ -35,6 +37,15 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn({ csrfToken }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (status !== "loading") {
+      if (session) {
+        router.push("/");
+      }
+    }
+  });
   async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,7 +56,7 @@ export default function SignIn({ csrfToken }) {
     const res = await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/profile",
+      callbackUrl: "/",
     });
   }
 
