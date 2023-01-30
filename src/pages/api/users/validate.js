@@ -20,7 +20,6 @@ export default async function handler(req, res) {
           profile_picture: user.profile_picture,
           documents: user.documents,
         };
-        console.log(data);
         res.status(200).json(data);
       } else {
         res.status(401).json({ message: "invalid credentials" });

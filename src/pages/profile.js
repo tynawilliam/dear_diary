@@ -6,11 +6,9 @@ import getStatus from "@/utils/checkStatus";
 export default function profile() {
   const { data: session } = useSession();
   getStatus();
-  if (session) {
-  }
   return (
     <>
-      {" "}
+      <h1>User</h1>
       <Signout />
     </>
   );

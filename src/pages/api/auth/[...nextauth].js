@@ -30,7 +30,7 @@ export const authOptions = {
         });
         const user = await res.json();
         if (res.ok && user) {
-          console.log(user);
+          //   console.log(user);
           return user;
         }
         return null;
@@ -43,19 +43,23 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        return {
-          ...token,
-          accessToken: user.token,
-          refreshToken: user.refreshToken,
-        };
-      }
+      user && (token.user = user);
+      //   if (user) {
+      //     return {
+      //       ...token,
+      //       user,
+      //       accessToken: user.token,
+      //       refreshToken: user.refreshToken,
+      //     };
+      //   }
       return token;
     },
     async session({ session, token }) {
+      session.user = token.user;
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
+      //   console.log(session);
 
       return session;
     },
