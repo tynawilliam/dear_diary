@@ -71,7 +71,7 @@ export default function SignUp() {
       const resData = await res.json();
       if (!res.ok) {
         console.log("Error");
-      } else console.log("success");
+      }
       setIsLoading(false);
     }
     signUp();

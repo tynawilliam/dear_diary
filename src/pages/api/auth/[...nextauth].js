@@ -30,7 +30,6 @@ export const authOptions = {
         });
         const user = await res.json();
         if (res.ok && user) {
-          //   console.log(user);
           return user;
         }
         return null;
@@ -59,7 +58,6 @@ export const authOptions = {
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
-      //   console.log(session);
 
       return session;
     },

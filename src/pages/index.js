@@ -9,7 +9,6 @@ export default function HomePage() {
   if (!session) return <Loader />;
 
   if (session) {
-    console.log(session);
     return (
       <>
         <h1>Home</h1>
